@@ -15,8 +15,8 @@ data "cloudinit_config" "user_data" {
 
 resource "aws_instance" "ec2" {
   depends_on = [aws_iam_role.ssm_role]
-  ami           = "ami-071a96f274999fb02" # Amazon Linux 2
-  instance_type = "t4g.micro"
+  ami           = "ami-0406b8387ac37a82a" # Amazon Linux 2
+  instance_type = "t4g.nano"
   associate_public_ip_address = true
   vpc_security_group_ids = [aws_security_group.ec2_sg.id]
   source_dest_check = true
@@ -29,7 +29,7 @@ resource "aws_instance" "ec2" {
     delete_on_termination = true
   }
 
-  user_data_replace_on_change = false
+  user_data_replace_on_change = true
 
   user_data = data.cloudinit_config.user_data.rendered
 
